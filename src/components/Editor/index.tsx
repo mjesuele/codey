@@ -1,15 +1,41 @@
 import React from "react";
-import * as encodings from "../../encodings";
 import { EncodingName } from "../../App/types";
 import { DivProps } from "../../types/elementProps";
 import book from "../../phonebook/book.secrets";
+import preventDefault from "../../util/preventDefault";
+import styled from "styled-components";
 
-function preventDefault(f: Function) {
-  return (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    f();
+const Container = styled.div`
+  &,
+  button,
+  input,
+  textarea,
+  select {
+    font-size: 1em;
   }
-}
+`;
+
+const Section = styled.section`
+  margin-bottom: 2em;
+`;
+
+const Input = styled.input`
+  padding: .5em 1em;
+`;
+
+const Button = styled.button`
+  all: unset;
+
+  cursor: pointer;
+  color: white;
+  background-color: dodgerblue;
+  margin: 1em 0;
+  padding: .5em 1em;
+
+  * + & {
+    margin-left: 1em;
+  }
+`;
 
 export type EditorProps = DivProps & {
   encoded: string;
@@ -38,31 +64,43 @@ export function Editor({
   ...props
 }: EditorProps) {
   return (
-    <div {...props}>
-      <div>
-        <textarea rows={5} cols={50} onChange={onChangeText} value={text} />
-      </div>
-      <div>
-        <select onChange={onChangeEncoding} value={encoding}>
-          {encodingNames.map(k => (
-            <option key={k}>{k}</option>
-          ))}
-        </select>
-      </div>
-      <div>
+    <Container {...props}>
+      <Section>
+        <div>
+          <textarea rows={5} cols={50} onChange={onChangeText} value={text} />
+        </div>
+        <div>
+          <select onChange={onChangeEncoding} value={encoding}>
+            {encodingNames.map(k => (
+              <option key={k}>{k}</option>
+            ))}
+          </select>
+        </div>
+      </Section>
+      <Section>
         <p>{encoded}</p>
-      </div>
-      <div>
-        Send to: <input type="tel" onChange={onChangeTel} value={tel} />
-        <button onClick={onSend}>Send</button>
-      </div>
-      <div>
-        <h2>Phonebook</h2>
-        {book.map(({ name, numbers }) => {
-          const number = numbers[0];
-          return !!number && (<button key={name} onClick={preventDefault(() => onSelectNumber(number))}>{name}</button>);
-        })}
-      </div>
-    </div>
+      </Section>
+      <Section>
+        <div>
+          <Input type="tel" onChange={onChangeTel} placeholder="Recipient phone number" value={tel} />
+          <Button onClick={onSend}>Send</Button>
+        </div>
+        <div>
+          {book.map(({ name, numbers }) => {
+            const number = numbers[0];
+            return (
+              !!number && (
+                <Button
+                  key={name}
+                  onClick={preventDefault(() => onSelectNumber(number))}
+                >
+                  {name}
+                </Button>
+              )
+            );
+          })}
+        </div>
+      </Section>
+    </Container>
   );
 }

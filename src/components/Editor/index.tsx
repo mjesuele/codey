@@ -1,9 +1,10 @@
+import { BookButtons } from '../BookButtons';
 import React from "react";
 import { EncodingName } from "../../App/types";
 import { DivProps } from "../../types/elementProps";
 import book from "../../phonebook/book.secrets";
-import preventDefault from "../../util/preventDefault";
 import styled from "styled-components";
+import Button from '../Button';
 
 const Container = styled.div`
   &,
@@ -20,21 +21,7 @@ const Section = styled.section`
 `;
 
 const Input = styled.input`
-  padding: .5em 1em;
-`;
-
-const Button = styled.button`
-  all: unset;
-
-  cursor: pointer;
-  color: white;
-  background-color: dodgerblue;
-  margin: 1em 0;
-  padding: .5em 1em;
-
-  * + & {
-    margin-left: 1em;
-  }
+  padding: 0.5em 1em;
 `;
 
 export type EditorProps = DivProps & {
@@ -82,23 +69,16 @@ export function Editor({
       </Section>
       <Section>
         <div>
-          <Input type="tel" onChange={onChangeTel} placeholder="Recipient phone number" value={tel} />
+          <Input
+            type="tel"
+            onChange={onChangeTel}
+            placeholder="Recipient phone number"
+            value={tel}
+          />
           <Button onClick={onSend}>Send</Button>
         </div>
         <div>
-          {book.map(({ name, numbers }) => {
-            const number = numbers[0];
-            return (
-              !!number && (
-                <Button
-                  key={name}
-                  onClick={preventDefault(() => onSelectNumber(number))}
-                >
-                  {name}
-                </Button>
-              )
-            );
-          })}
+          <BookButtons {...{ book, onSelectNumber }}/>
         </div>
       </Section>
     </Container>

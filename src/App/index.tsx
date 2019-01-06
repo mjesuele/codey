@@ -17,7 +17,7 @@ const Table = styled.table`
   }
 `;
 
-export default function App() {
+export default function App(props: { className?: string }) {
   const [response, setResponse] = useState("");
   const [delivered, setDelivered] = useState<SimpleMessage[]>([]);
   const [received, setReceived] = useState<SimpleMessage[]>([]);
@@ -32,7 +32,7 @@ export default function App() {
   useEffect(pollForUpdates(updateMessages), []);
 
   return (
-    <Table>
+    <Table {...props}>
       <tbody>
         <tr>
           <td>

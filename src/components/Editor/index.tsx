@@ -5,6 +5,7 @@ import { DivProps } from "../../types/elementProps";
 import book from "../../phonebook/book.secrets";
 import styled from "styled-components";
 import Button from '../Button';
+import { PX } from '../../types/PX';
 
 const Container = styled.div`
   &,
@@ -49,7 +50,7 @@ export function Editor({
   tel,
   text,
   ...props
-}: EditorProps) {
+}: PX<EditorProps>) {
   return (
     <Container {...props}>
       <Section>

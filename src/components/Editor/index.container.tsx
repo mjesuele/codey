@@ -10,12 +10,13 @@ import * as encodings from "../../encodings";
 import { sendMessage } from "../../api";
 import { pretty } from "../../util/pretty";
 import { DivProps } from "../../types/elementProps";
+import { PX } from "../../types/PX";
 
 export type EditorContainerProps = DivProps & {
   setResponse: Dispatch<string>;
 };
 
-export default function EditorContainer({ setResponse, ...props }: EditorContainerProps) {
+export default function EditorContainer({ setResponse, ...props }: PX<EditorContainerProps>) {
   const [text, setText] = useState("this is a test sentence");
   const [tel, setTel] = useState("");
   const [encoding, setEncoding] = useState<EncodingName>("l33t");

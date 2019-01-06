@@ -1,5 +1,7 @@
-import styled from "styled-components";
-export default styled.button`
+import styled, { css } from "styled-components";
+import { PX } from "../types/PX";
+
+const style = css`
   all: unset;
 
   cursor: pointer;
@@ -12,3 +14,5 @@ export default styled.button`
     margin-left: 1em;
   }
 `;
+
+export default styled.button<PX>`${style}`;

@@ -3,6 +3,8 @@ import { SimpleMessage, Status } from "../App/types";
 import { getName } from "../phonebook";
 import book from "../phonebook/book.secrets";
 import styled from "styled-components";
+import { DivProps } from "../types/elementProps";
+import { PX } from "../types/PX";
 
 const Msg = styled.div`
   margin-bottom: 1.5em;
@@ -23,16 +25,17 @@ const DateTime = styled.time`
   margin: .1em 0 .5em;
 `;
 
-type Props = { msg: SimpleMessage };
+type Props = DivProps & { msg: SimpleMessage };
 
 export default function FormattedMsg({
   msg: { body, date, from, time, status, to },
-}: Props) {
+  ...props
+}: PX<Props>) {
   const [number, direction] =
     status === Status.Delivered ? [to, "To"] : [from, "From"];
   const name = getName(number, book) || number;
   return (
-    <Msg>
+    <Msg {...props}>
       <Header>
         <Name>
           {direction} {name}

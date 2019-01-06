@@ -6,6 +6,7 @@ import { fetchMessages } from "../api";
 import EditorContainer from "../components/Editor/index.container";
 import styled from "styled-components";
 import FormattedMsg from "../components/FormattedMsg";
+import { PX } from "../types/PX";
 
 const Table = styled.table`
   table-layout: fixed;
@@ -17,7 +18,7 @@ const Table = styled.table`
   }
 `;
 
-export default function App(props: { className?: string }) {
+export default function App(props: PX) {
   const [response, setResponse] = useState("");
   const [delivered, setDelivered] = useState<SimpleMessage[]>([]);
   const [received, setReceived] = useState<SimpleMessage[]>([]);

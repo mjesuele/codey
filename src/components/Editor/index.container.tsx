@@ -9,12 +9,13 @@ import { Dispatch, EncodingName } from "../../App/types";
 import * as encodings from "../../encodings";
 import { sendMessage } from "../../api";
 import { pretty } from "../../util/pretty";
+import { DivProps } from "../../types/elementProps";
 
-export type EditorContainerProps = {
+export type EditorContainerProps = DivProps & {
   setResponse: Dispatch<string>;
 };
 
-export default function EditorContainer({ setResponse }: EditorContainerProps) {
+export default function EditorContainer({ setResponse, ...props }: EditorContainerProps) {
   const [text, setText] = useState("this is a test sentence");
   const [tel, setTel] = useState("");
   const [encoding, setEncoding] = useState<EncodingName>("l33t");
@@ -32,6 +33,8 @@ export default function EditorContainer({ setResponse }: EditorContainerProps) {
     setText(e.currentTarget.value);
   const onChangeTel = (e: ChangeEvent<HTMLInputElement>) =>
     setTel(e.currentTarget.value);
+  const onSelectNumber = (pn: string) =>
+    setTel(pn);
 
   const encodingNames = [
     // "none" should always come first
@@ -46,11 +49,13 @@ export default function EditorContainer({ setResponse }: EditorContainerProps) {
         encoding,
         encodingNames,
         onChangeEncoding,
+        onSelectNumber,
         onChangeText,
         onChangeTel,
         onSend,
         tel,
         text,
+        ...props,
       }}
     />
   );

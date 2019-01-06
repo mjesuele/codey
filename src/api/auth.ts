@@ -1,2 +1,3 @@
 import { sid, token } from "../secrets";
-export default Buffer.from(`${sid}:${token}`).toString("base64");
+import base64 from "../util/base64";
+export default base64(`${sid}:${token}`);

@@ -1,4 +1,3 @@
-import { Encoding } from "../App/types";
 import { pipe } from "ramda";
 import { maybeReplace, maybeUpper } from "../util/maybe";
 
@@ -23,7 +22,7 @@ const l33tLetterConverter = pipe(
   pipe(maybeReplace(/x/i, "✕")),
 );
 
-export const l33t: Encoding = s =>
+export default (s: string) =>
   l33tWordConverter(s)
     .split("")
     .map(l33tLetterConverter)

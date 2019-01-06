@@ -22,7 +22,7 @@ const Section = styled.section`
 `;
 
 const Input = styled.input`
-  padding: 0.5em 1em;
+  padding: 0.5em;
 `;
 
 export type EditorProps = DivProps & {

@@ -1,9 +1,10 @@
 import React from "react";
 import * as encodings from "../encodings";
-import { Encoding } from "../App/types";
+import { EncodingName } from "../App/types";
 
 type EditorProps = {
-  encoding: Encoding;
+  encoded: string;
+  encoding: EncodingName;
   onChangeEncoding: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onChangeTel: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeText: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -13,6 +14,7 @@ type EditorProps = {
 };
 
 export function Editor({
+  encoded,
   encoding,
   onChangeEncoding,
   onChangeTel,
@@ -25,7 +27,7 @@ export function Editor({
     // "none" should always come first
     "none",
     ...keys(encodings).filter(k => k !== "none"),
-  ] as Encoding[];
+  ] as EncodingName[];
 
   return (
     <div>
@@ -33,14 +35,14 @@ export function Editor({
         <textarea rows={5} cols={50} onChange={onChangeText} value={text} />
       </div>
       <div>
-        <select onChange={onChangeEncoding} defaultValue={"none"}>
+        <select onChange={onChangeEncoding} value={encoding}>
           {encodingNames.map(k => (
             <option key={k}>{k}</option>
           ))}
         </select>
       </div>
       <div>
-        <p>{encodings[encoding](text)}</p>
+        <p>{encoded}</p>
       </div>
       <div>
         Send to: <input type="tel" onChange={onChangeTel} value={tel} />

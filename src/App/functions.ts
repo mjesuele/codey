@@ -3,7 +3,7 @@ import * as encodings from "../encodings";
 import { groupBy, take } from "ramda";
 import { sendMessage, fetchMessages } from "../api";
 import { pretty } from "../util/pretty";
-import { Message, SimpleMessage, HandlerProps, Encoding } from "./types";
+import { Message, SimpleMessage, HandlerProps, EncodingName } from "./types";
 
 export function formatSimpleMsgs(simpleMsgs: SimpleMessage[]) {
   return pretty(simpleMsgs);
@@ -19,17 +19,16 @@ export function groupMessages(messages: Message[]) {
 }
 
 export function getHandlers({
-  encoding,
+  encoded,
   setEncoding,
   setText,
   setTel,
   tel,
-  text,
   setResponse,
   setMessages,
 }: HandlerProps) {
   const onChangeEncoding = (e: ChangeEvent<HTMLSelectElement>) =>
-    setEncoding(e.currentTarget.value as Encoding);
+    setEncoding(e.currentTarget.value as EncodingName);
 
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) =>
     setText(e.currentTarget.value);
@@ -39,9 +38,7 @@ export function getHandlers({
 
   const onClick: MouseEventHandler = e => {
     e.preventDefault();
-    sendMessage(tel, encodings[encoding](text)).then(r =>
-      setResponse(pretty(r)),
-    );
+    sendMessage(tel, encoded).then(r => setResponse(pretty(r)));
   };
 
   const updateMessages = () =>

@@ -5,14 +5,19 @@ import { PX } from "../types/PX";
 
 type CodeProps = ElementProps & {
   children: string;
-  language? :string
+  language?: string;
 };
 
 export function Code({ children, language, ...props }: PX<CodeProps>) {
-  const lang = language || 'js';
+  const lang = language || "js";
   return (
     <pre {...props}>
-      <code className={`language-${lang}`} dangerouslySetInnerHTML={{ __html: Prism.highlight(children, Prism.languages[lang]) }} />
-    </pre> 
+      <code
+        className={`language-${lang}`}
+        dangerouslySetInnerHTML={{
+          __html: Prism.highlight(children, Prism.languages[lang]),
+        }}
+      />
+    </pre>
   );
 }

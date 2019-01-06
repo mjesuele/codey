@@ -15,4 +15,6 @@ const style = css`
   }
 `;
 
-export default styled.button<PX>`${style}`;
+export default styled.button<PX>`
+  ${style}
+`;

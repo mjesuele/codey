@@ -22,7 +22,7 @@ const Name = styled.span`
 const DateTime = styled.time`
   color: dimgray;
   display: block;
-  margin: .1em 0 .5em;
+  margin: 0.1em 0 0.5em;
 `;
 
 type Props = DivProps & { msg: SimpleMessage };
@@ -40,7 +40,11 @@ export default function FormattedMsg({
         <Name>
           {direction} {name}
         </Name>
-        <DateTime>{date}<br />{time}</DateTime>
+        <DateTime>
+          {date}
+          <br />
+          {time}
+        </DateTime>
       </Header>
       <span>{body}</span>
     </Msg>

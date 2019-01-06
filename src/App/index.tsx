@@ -60,7 +60,7 @@ export default function App(props: PX) {
 }
 
 function renderMsgs(msgs: SimpleMessage[]) {
-  return msgs.map(msg => (<FormattedMsg key={msgKey(msg)} msg={msg} />));
+  return msgs.map(msg => <FormattedMsg key={msgKey(msg)} msg={msg} />);
 }
 
 export function msgKey(msg: SimpleMessage): string | number | undefined {

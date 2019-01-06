@@ -1,8 +1,9 @@
 import React from "react";
 import * as encodings from "../encodings";
 import { EncodingName } from "../App/types";
+import { DivProps } from "../types/elementProps";
 
-type EditorProps = {
+export type EditorProps = DivProps & {
   encoded: string;
   encoding: EncodingName;
   onChangeEncoding: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -22,6 +23,7 @@ export function Editor({
   onClick,
   tel,
   text,
+  ...props
 }: EditorProps) {
   const encodingNames = [
     // "none" should always come first
@@ -30,7 +32,7 @@ export function Editor({
   ] as EncodingName[];
 
   return (
-    <div>
+    <div {...props}>
       <div>
         <textarea rows={5} cols={50} onChange={onChangeText} value={text} />
       </div>

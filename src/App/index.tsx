@@ -1,7 +1,7 @@
 import { Code } from "./../components/Code";
 import React, { useState, useEffect } from "react";
 import { Message, EncodingName, SimpleMessage } from "./types";
-import { Editor } from "../components/Editor";
+import { Editor, EditorProps } from "../components/Editor";
 import {
   getHandlers,
   pollForUpdates,
@@ -47,21 +47,21 @@ export default function App() {
     [messages],
   );
 
+  const editorProps: EditorProps = {
+    encoded,
+    encoding,
+    onChangeEncoding,
+    onChangeText,
+    text,
+    onChangeTel,
+    tel,
+    onClick,
+  };
+
   return (
     <div className="App">
       <h1>Codey</h1>
-      <Editor
-        {...{
-          encoded,
-          encoding,
-          onChangeEncoding,
-          onChangeText,
-          text,
-          onChangeTel,
-          tel,
-          onClick,
-        }}
-      />
+      <Editor {...editorProps} />
       <div>
         Response: <Code>{response}</Code>
       </div>

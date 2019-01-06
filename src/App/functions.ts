@@ -1,9 +1,19 @@
-import { groupBy, take } from "ramda";
+import { groupBy, take, uniq } from "ramda";
 import { pretty } from "../util/pretty";
 import { Message, SimpleMessage } from "./types";
+import { getName } from "../phonebook";
+import book from "../phonebook/book.secrets";
 
 export function formatSimpleMsgs(simpleMsgs: SimpleMessage[]) {
-  return pretty(simpleMsgs);
+  const prettyMsgs = pretty(simpleMsgs);
+  const numbers = uniq(prettyMsgs.match(/\+1\d{10}/g) || []);
+  const msgsWithNames = numbers.reduce((txt, number) => {
+    const name = getName(number, book);
+    const regex = new RegExp(`\\${number}`, "g");
+    return name ? txt.replace(regex, name) : txt;
+  }, prettyMsgs);
+
+  return msgsWithNames;
 }
 
 const _5 = take<SimpleMessage>(5);

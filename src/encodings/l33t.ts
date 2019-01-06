@@ -4,7 +4,7 @@ import { maybeReplace, maybeUpper } from "../util/maybe";
 
 const l33tWordConverter = pipe(
   maybeReplace(/you/gi, "j00"),
-  maybeReplace(/the/gi, "teh", 1)
+  maybeReplace(/the/gi, "teh", 1),
 );
 
 const l33tLetterConverter = pipe(
@@ -20,9 +20,7 @@ const l33tLetterConverter = pipe(
     maybeReplace(/s/i, "5", 0.5),
     maybeReplace(/t/i, "7"),
   ),
-  pipe(
-    maybeReplace(/x/i, "✕"),
-  )
+  pipe(maybeReplace(/x/i, "✕")),
 );
 
 export const l33t: Encoding = s =>

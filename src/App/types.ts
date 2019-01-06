@@ -58,15 +58,6 @@ export enum Status {
 export interface SubresourceUris {
   media: string;
 }
-type Dispatch<T> = React.Dispatch<React.SetStateAction<T>>;
+export type Dispatch<T> = React.Dispatch<React.SetStateAction<T>>;
 export type Encoding = (s: string) => string;
 export type EncodingName = keyof typeof encodings;
-export type HandlerProps = {
-  encoded: string;
-  setEncoding: Dispatch<EncodingName>;
-  setMessages: Dispatch<Message[]>;
-  setResponse: Dispatch<string>;
-  setTel: Dispatch<string>;
-  setText: Dispatch<string>;
-  tel: string;
-};

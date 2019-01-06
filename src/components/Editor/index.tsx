@@ -1,15 +1,16 @@
 import React from "react";
-import * as encodings from "../encodings";
-import { EncodingName } from "../App/types";
-import { DivProps } from "../types/elementProps";
+import * as encodings from "../../encodings";
+import { EncodingName } from "../../App/types";
+import { DivProps } from "../../types/elementProps";
 
 export type EditorProps = DivProps & {
   encoded: string;
   encoding: EncodingName;
+  encodingNames: EncodingName[];
   onChangeEncoding: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onChangeTel: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeText: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onClick: (event: React.MouseEvent<Element, MouseEvent>) => void;
+  onSend: (event: React.MouseEvent<Element, MouseEvent>) => void;
   tel: string;
   text: string;
 };
@@ -17,20 +18,15 @@ export type EditorProps = DivProps & {
 export function Editor({
   encoded,
   encoding,
+  encodingNames,
   onChangeEncoding,
   onChangeTel,
   onChangeText,
-  onClick,
+  onSend,
   tel,
   text,
   ...props
 }: EditorProps) {
-  const encodingNames = [
-    // "none" should always come first
-    "none",
-    ...keys(encodings).filter(k => k !== "none"),
-  ] as EncodingName[];
-
   return (
     <div {...props}>
       <div>
@@ -48,12 +44,8 @@ export function Editor({
       </div>
       <div>
         Send to: <input type="tel" onChange={onChangeTel} value={tel} />
-        <button {...{ onClick }}>Send</button>
+        <button onClick={onSend}>Send</button>
       </div>
     </div>
   );
-}
-
-function keys<T extends Object>(obj: T) {
-  return Object.keys(obj) as Array<keyof T>;
 }

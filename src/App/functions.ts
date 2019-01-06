@@ -1,56 +1,19 @@
-import { ChangeEvent, MouseEventHandler } from "react";
-import * as encodings from "../encodings";
 import { groupBy, take } from "ramda";
-import { sendMessage, fetchMessages } from "../api";
 import { pretty } from "../util/pretty";
-import { Message, SimpleMessage, HandlerProps, EncodingName } from "./types";
+import { Message, SimpleMessage } from "./types";
 
 export function formatSimpleMsgs(simpleMsgs: SimpleMessage[]) {
   return pretty(simpleMsgs);
 }
 
 const _5 = take<SimpleMessage>(5);
+
 export function groupMessages(messages: Message[]) {
   const simpleMsgs = messages.map(simplifyMsgs);
   const grouped = groupBy(e => e.status, simpleMsgs);
   const delivered = _5(grouped.delivered || []);
   const received = _5(grouped.received || []);
   return { delivered, received };
-}
-
-export function getHandlers({
-  encoded,
-  setEncoding,
-  setText,
-  setTel,
-  tel,
-  setResponse,
-  setMessages,
-}: HandlerProps) {
-  const onChangeEncoding = (e: ChangeEvent<HTMLSelectElement>) =>
-    setEncoding(e.currentTarget.value as EncodingName);
-
-  const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    setText(e.currentTarget.value);
-
-  const onChangeTel = (e: ChangeEvent<HTMLInputElement>) =>
-    setTel(e.currentTarget.value);
-
-  const onClick: MouseEventHandler = e => {
-    e.preventDefault();
-    sendMessage(tel, encoded).then(r => setResponse(pretty(r)));
-  };
-
-  const updateMessages = () =>
-    fetchMessages().then(ms => setMessages(ms.messages));
-
-  return {
-    updateMessages,
-    onChangeEncoding,
-    onChangeText,
-    onChangeTel,
-    onClick,
-  };
 }
 
 export function pollForUpdates(updateMessages: () => Promise<void>) {

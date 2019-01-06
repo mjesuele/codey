@@ -2,8 +2,8 @@ import React, { ReactNode } from "react";
 import { ElementProps } from "../types/elementProps";
 
 type CodeProps = ElementProps & {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 export function Code({ children, ...props }: CodeProps) {
   return (

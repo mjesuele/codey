@@ -2,6 +2,8 @@
 
 Codey is a TypeScript + React app for encoding messages and sending them via SMS using [Twilio](https://www.twilio.com).
 
+![Screenshot](https://raw.githubusercontent.com/mjesuele/codey/master/screenshot.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Quickstart

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { SimpleMessage, Status } from "../App/types";
 import { getName } from "../phonebook";
 import book from "../phonebook/book.secrets";
@@ -28,12 +28,12 @@ const DateTime = styled.time`
 type Props = DivProps & { msg: SimpleMessage };
 
 export default function FormattedMsg({
-  msg: { body, date, from, time, status, to },
+  msg, msg: { body, date, from, time, status, to },
   ...props
 }: PX<Props>) {
   const [number, direction] =
     status === Status.Delivered ? [to, "To"] : [from, "From"];
-  const name = getName(number, book) || number;
+  const name = useMemo(() => (getName(number, book) || number), [msg]);
   return (
     <Msg {...props}>
       <Header>
